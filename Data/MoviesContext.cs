@@ -15,10 +15,5 @@ namespace Movies.Data
         }
 
         public DbSet<Movies.Models.Movie> Movie { get; set; } = default!;
-        
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Movie>().Property(m => m.Price).HasPrecision(18, 2);
-        }
     }
 }
