@@ -20,21 +20,36 @@ namespace Movies.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Movie.ToListAsync());
-        }
+            var movies = from m in _context.Movie
+                select m;
 
-        // GET: Movies/Details/5
-        public async Task<IActionResult> Details(int? id)
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                movies = movies.Where(s => s.Title!.Contains(searchString));
+            }
+
+            return View(await movies.ToListAsync());
+        }
+        
+        [HttpPost]
+        public string Index(string searchString, bool notUsed)
         {
-            if (id == null)
+            return "From [HttpPost]Index: filter on " + searchString;
+        }
+        
+        // GET: Movies/Details/5
+        
+        public async Task<IActionResult> Details(int? searchStrong)
+        {
+            if (searchStrong == null)
             {
                 return NotFound();
             }
 
             var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == searchStrong);
             if (movie == null)
             {
                 return NotFound();
@@ -66,14 +81,14 @@ namespace Movies.Controllers
         }
 
         // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? searchStrong)
         {
-            if (id == null)
+            if (searchStrong == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FindAsync(id);
+            var movie = await _context.Movie.FindAsync(searchStrong);
             if (movie == null)
             {
                 return NotFound();
@@ -86,9 +101,9 @@ namespace Movies.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
+        public async Task<IActionResult> Edit(int searchStrong, [Bind("Id,Title,ReleaseDate,Genre,Price")] Movie movie)
         {
-            if (id != movie.Id)
+            if (searchStrong != movie.Id)
             {
                 return NotFound();
             }
@@ -117,15 +132,15 @@ namespace Movies.Controllers
         }
 
         // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? searchStrong)
         {
-            if (id == null)
+            if (searchStrong == null)
             {
                 return NotFound();
             }
 
             var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == searchStrong);
             if (movie == null)
             {
                 return NotFound();
@@ -137,9 +152,9 @@ namespace Movies.Controllers
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int searchStrong)
         {
-            var movie = await _context.Movie.FindAsync(id);
+            var movie = await _context.Movie.FindAsync(searchStrong);
             if (movie != null)
             {
                 _context.Movie.Remove(movie);
