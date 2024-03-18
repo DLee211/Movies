@@ -96,14 +96,14 @@ namespace Movies.Controllers
         }
 
         // GET: Movies/Edit/5
-        public async Task<IActionResult> Edit(int? searchStrong)
+        public async Task<IActionResult> Edit(int? id, [Bind("Id,Title,ReleaseDate,Genre,Price,Rating")] Movie movie)
         {
-            if (searchStrong == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var movie = await _context.Movie.FindAsync(searchStrong);
+            movie = await _context.Movie.FindAsync(id);
             if (movie == null)
             {
                 return NotFound();
@@ -147,15 +147,15 @@ namespace Movies.Controllers
         }
 
         // GET: Movies/Delete/5
-        public async Task<IActionResult> Delete(int? searchStrong)
+        public async Task<IActionResult> Delete(int? id)
         {
-            if (searchStrong == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
             var movie = await _context.Movie
-                .FirstOrDefaultAsync(m => m.Id == searchStrong);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (movie == null)
             {
                 return NotFound();
@@ -167,9 +167,9 @@ namespace Movies.Controllers
         // POST: Movies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int searchStrong)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var movie = await _context.Movie.FindAsync(searchStrong);
+            var movie = await _context.Movie.FindAsync(id);
             if (movie != null)
             {
                 _context.Movie.Remove(movie);
