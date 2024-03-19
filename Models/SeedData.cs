@@ -50,4 +50,16 @@ public static class SeedData
         );
         context.SaveChanges();
     }
+    
+    public static void ClearDatabase(IServiceProvider serviceProvider)
+    {
+        using (var context = new MoviesContext(
+                   serviceProvider.GetRequiredService<
+                       DbContextOptions<MoviesContext>>()))
+        {
+            context.Movie.RemoveRange(context.Movie);
+            context.SaveChanges();
+        }
+    }
 }
+
