@@ -8,23 +8,23 @@ Welcome to the Movie Management Application! This project utilizes the Model-Vie
 ## Requirements
 To run this application, you will need the following:
 
-.NET SDK installed on your machine
-SQL Server for the database (configured in appsettings.json)
-Entity Framework for database interactions
-Basic understanding of MVC architecture
-Installation
-Clone this repository to your local machine.
-Open the project in your preferred IDE (e.g., Visual Studio).
-Update the connection string in appsettings.json to point to your SQL Server database.
-Build the solution to restore dependencies.
-Run the database migrations to create the necessary tables
-Launch the application.
+1. .NET SDK installed on your machine
+2. SQL Server for the database (configured in appsettings.json)
+3. Entity Framework for database interactions
+4. Basic understanding of MVC architecture
+5. Installation
+6. Clone this repository to your local machine.
+7. Open the project in your preferred IDE (e.g., Visual Studio).
+8. Update the connection string in appsettings.json to point to your SQL Server database.
+9. Build the solution to restore dependencies.
+10. Run the database migrations to create the necessary tables
+11. Launch the application.
 
 ## Usage
 Once the application is running, you can access it through your web browser. Here are some key features:
 
-Add Movie: Add a new movie to the database.
-Edit Movie: Update information about an existing movie.
-Delete Movie: Remove a movie from the database.
-Search Movies: Search for movies by name.
-View All Movies: Browse through the list of all available movies.
+- Add Movie: Add a new movie to the database.
+- Edit Movie: Update information about an existing movie.
+- Delete Movie: Remove a movie from the database.
+- Search Movies: Search for movies by name.
+- View All Movies: Browse through the list of all available movies.
